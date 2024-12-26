@@ -1,13 +1,19 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { multiply } from 'react-native-swipe-reveal';
-
-const result = multiply(3, 7);
+import { View, StyleSheet, StatusBar, Platform } from 'react-native';
+import { List } from './screens/List';
+import { Color_Pallete } from './constants';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <GestureHandlerRootView>
+      <View style={styles.container}>
+        <StatusBar
+          barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+          backgroundColor={Color_Pallete.metal_black}
+        />
+        <List />
+      </View>
+    </GestureHandlerRootView>
   );
 }
 
@@ -16,5 +22,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
 });
