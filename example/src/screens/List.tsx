@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { FlatList, Image, Text, View } from 'react-native';
 
 import { styles } from './List.styles';
-import { SwipeRevealWrapper } from 'react-native-swipe-reveal';
+import {
+  EAnimationType,
+  SwipeableItemWrapper,
+} from 'react-native-swipe-reveal';
 import { SCREEN_PADDING, SONGS } from '../constants';
+import { getRandomColor } from '../helpers';
 
 export const List = () => {
-  const [songs] = useState(SONGS);
+  const [songs, setSongs] = useState(SONGS);
 
-  // const deleteItem = useCallback((id: number) => {
-  //   setSongs((prevSongs) => prevSongs.filter((eachSong) => eachSong.id !== id));
-  // }, []);
+  const deleteItem = useCallback((id: number) => {
+    setSongs((prevSongs) => prevSongs.filter((eachSong) => eachSong.id !== id));
+  }, []);
 
   return (
     <View style={styles.listContainer}>
@@ -18,31 +22,103 @@ export const List = () => {
         data={songs}
         style={{ paddingHorizontal: SCREEN_PADDING }}
         renderItem={({ item }) => (
-          <SwipeRevealWrapper
+          <SwipeableItemWrapper
             id={item.id}
-            // animationType={item.type}
-            // leftRevealedView={
-            //   item.type === EAnimationType['left-reveal'] ? (
-            //     <View style={styles.leftRevealedView}>
-            //       <Text style={styles.leftRevealedViewText}>Left</Text>
-            //     </View>
-            //   ) : undefined
-            // }
-            // rightRevealedView={
-            //   item.type === EAnimationType['right-reveal'] ? (
-            //     <View style={styles.rightRevealedView}>
-            //       <Text style={styles.rightRevealedViewText}>Right</Text>
-            //     </View>
-            //   ) : undefined
-            // }
-            // onLeftFullSwipe={() => deleteItem(item.id)}
-            // onRightFullSwipe={() => deleteItem(item.id)}
+            animationType={item.type}
+            leftRevealedView={
+              item.type === EAnimationType['left-reveal'] ||
+              item.type === EAnimationType['left-right-reveal'] ? (
+                <View style={{ flexDirection: 'row', height: '100%' }}>
+                  <View
+                    style={[
+                      styles.reavealView,
+                      {
+                        backgroundColor: getRandomColor(),
+                        paddingHorizontal: SCREEN_PADDING * 2,
+                      },
+                    ]}
+                  >
+                    <Text>Left 1</Text>
+                  </View>
+                  <View
+                    style={[
+                      styles.reavealView,
+                      {
+                        backgroundColor: getRandomColor(),
+                        paddingHorizontal: SCREEN_PADDING,
+                      },
+                    ]}
+                  >
+                    <Text>Left 2</Text>
+                  </View>
+                </View>
+              ) : undefined
+            }
+            rightRevealedView={
+              item.type === EAnimationType['right-reveal'] ||
+              item.type === EAnimationType['left-right-reveal'] ? (
+                <View style={{ flexDirection: 'row', height: '100%' }}>
+                  <View
+                    style={[
+                      styles.reavealView,
+                      {
+                        backgroundColor: getRandomColor(),
+                        paddingHorizontal: SCREEN_PADDING,
+                      },
+                    ]}
+                  >
+                    <Text>Right 1</Text>
+                  </View>
+                  <View
+                    style={[
+                      styles.reavealView,
+                      {
+                        backgroundColor: getRandomColor(),
+                        paddingHorizontal: SCREEN_PADDING,
+                      },
+                    ]}
+                  >
+                    <Text>Right 2</Text>
+                  </View>
+                </View>
+              ) : undefined
+            }
+            onLeftFullSwipe={() => deleteItem(item.id)}
+            onRightFullSwipe={() => deleteItem(item.id)}
+            onRightFullSwipeView={
+              item.type === EAnimationType['right-full-swipe'] ? (
+                <View
+                  style={[
+                    styles.reavealView,
+                    styles.w100,
+                    {
+                      backgroundColor: getRandomColor(),
+                      paddingHorizontal: SCREEN_PADDING,
+                    },
+                  ]}
+                >
+                  <Text>Delete</Text>
+                </View>
+              ) : undefined
+            }
+            onLeftFullSwipeView={
+              item.type === EAnimationType['left-full-swipe'] ? (
+                <View
+                  style={[
+                    styles.reavealView,
+                    styles.w100,
+                    {
+                      backgroundColor: getRandomColor(),
+                      paddingHorizontal: SCREEN_PADDING,
+                    },
+                  ]}
+                >
+                  <Text>Delete</Text>
+                </View>
+              ) : undefined
+            }
           >
-            <View
-              style={{
-                flexDirection: 'row',
-              }}
-            >
+            <View style={styles.container}>
               <View style={styles.imageContainer}>
                 <Image
                   source={{
@@ -57,7 +133,7 @@ export const List = () => {
                 <Text style={styles.description2}>{item.singer}</Text>
               </View>
             </View>
-          </SwipeRevealWrapper>
+          </SwipeableItemWrapper>
         )}
         keyExtractor={(item) => item.id.toString()}
       />

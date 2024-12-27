@@ -15,12 +15,14 @@ export const SONGS = [
     singer: 'Coldplay',
     imageSrc:
       'https://i.scdn.co/image/ab67616d0000b273de0cd11d7b31c3bd1fd5983d',
+    type: EAnimationType['right-reveal'],
   },
   {
     id: 2,
     title: 'Viva La Vida',
     singer: 'Coldplay',
     imageSrc: 'https://i.ytimg.com/vi/dvgZkm1xWPE/maxresdefault.jpg',
+    type: EAnimationType['left-right-reveal'],
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ export const SONGS = [
     singer: 'Coldplay',
     imageSrc:
       'https://i.scdn.co/image/ab67616d0000b273e5a95573f1b91234630fd2cf',
+    type: EAnimationType['right-full-swipe'],
   },
   {
     id: 4,
@@ -35,6 +38,7 @@ export const SONGS = [
     singer: 'Coldplay',
     imageSrc:
       'https://i.scdn.co/image/ab67616d0000b273de09e02aa7febf30b7c02d82',
+    type: EAnimationType['left-full-swipe'],
   },
   {
     id: 5,

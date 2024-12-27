@@ -9,23 +9,20 @@ import {
   type GestureUpdateEvent,
   type PanGestureHandlerEventPayload,
 } from 'react-native-gesture-handler';
-import {
-  ANIMATION_DURATION,
-  EDraggingDirection,
-  EAnimationType,
-  ITEM_WIDTH,
-  SCREEN_PADDING,
-} from '../constants';
+import { ANIMATION_DURATION, EDraggingDirection } from '../constants';
 import type { TItemKey } from '../types';
-import { useMemo } from 'react';
 
 export const usePanXGesture = (
   leftRevealedViewWidth: number,
   rightRevealedViewWidth: number,
-  animationType: EAnimationType | undefined,
   id: string | number,
   onLeftFullSwipe: ((key: TItemKey) => void) | undefined,
-  onRightFullSwipe: ((key: TItemKey) => void) | undefined
+  onRightFullSwipe: ((key: TItemKey) => void) | undefined,
+  doesLeftRevealViewExist: boolean,
+  doesRightRevealViewExist: boolean,
+  doesLeftFullSwipeExist: boolean,
+  doesRightFullSwipeExist: boolean,
+  itemWidth: number
 ) => {
   //this is used to make scrollview active with pangesture
   const initialTouchLocation = useSharedValue<{
@@ -36,30 +33,6 @@ export const usePanXGesture = (
   const offsetX = useSharedValue(0);
   const startX = useSharedValue(0);
   const dragDirectionShared = useSharedValue(EDraggingDirection.none);
-
-  const doesLeftRevealViewExist = useMemo(() => {
-    return (
-      (animationType === EAnimationType['left-reveal'] ||
-        animationType === EAnimationType['left-right-reveal']) &&
-      leftRevealedViewWidth
-    );
-  }, [animationType, leftRevealedViewWidth]);
-
-  const doesRightRevealViewExist = useMemo(() => {
-    return (
-      (animationType === EAnimationType['left-reveal'] ||
-        animationType === EAnimationType['left-right-reveal']) &&
-      rightRevealedViewWidth
-    );
-  }, [animationType, rightRevealedViewWidth]);
-
-  const doesLeftFullSwipeExist = useMemo(() => {
-    return animationType === EAnimationType['left-full-swipe'];
-  }, [animationType]);
-
-  const doesRightFullSwipeExist = useMemo(() => {
-    return animationType === EAnimationType['right-full-swipe'];
-  }, [animationType]);
 
   const resetOffsets = (duration?: number) => {
     'worklet';
@@ -214,10 +187,10 @@ export const usePanXGesture = (
         }
 
         if (doesRightFullSwipeExist) {
-          if (offsetX.value >= ITEM_WIDTH / 2) {
+          if (offsetX.value >= itemWidth / 2) {
             //move to rightmost side and remove item
             offsetX.value = withTiming(
-              ITEM_WIDTH + SCREEN_PADDING,
+              itemWidth,
               {
                 duration: ANIMATION_DURATION,
               },
@@ -227,8 +200,8 @@ export const usePanXGesture = (
                 }
               }
             );
-            startX.value = ITEM_WIDTH + SCREEN_PADDING;
-          } else if (offsetX.value < ITEM_WIDTH / 2) {
+            startX.value = itemWidth;
+          } else if (offsetX.value < itemWidth / 2) {
             //move to leftmost end
             resetOffsets(ANIMATION_DURATION);
           }
@@ -252,12 +225,12 @@ export const usePanXGesture = (
         }
 
         if (doesLeftFullSwipeExist) {
-          if (getLeftPanX(offsetX.value) >= ITEM_WIDTH / 2) {
+          if (getLeftPanX(offsetX.value) >= itemWidth / 2) {
             //move to leftmost end and remove item
 
-            //we set -ITEM_WIDTH+ SCREEN_PADDING, as moving from left to right, values should be negative.
+            //we set -itemWidth, as moving from left to right, values should be negative.
             offsetX.value = withTiming(
-              -(ITEM_WIDTH + SCREEN_PADDING),
+              -itemWidth,
               {
                 duration: ANIMATION_DURATION,
               },
@@ -267,8 +240,8 @@ export const usePanXGesture = (
                 }
               }
             );
-            startX.value = -(ITEM_WIDTH + SCREEN_PADDING);
-          } else if (getLeftPanX(offsetX.value) < ITEM_WIDTH / 2) {
+            startX.value = -itemWidth;
+          } else if (getLeftPanX(offsetX.value) < itemWidth / 2) {
             //move to rightmost end
             resetOffsets(ANIMATION_DURATION);
           }

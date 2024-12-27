@@ -1,8 +1,10 @@
 import type { ReactElement, ReactNode } from 'react';
 import { EAnimationType } from './constants';
+import type { ViewStyle } from 'react-native';
 
 export type TItemKey = string | number;
-export type TSwipeRevealWrapper = {
+
+export type TSwipeableItemWrapper = {
   id: TItemKey;
   children: ReactElement;
   animationType?: EAnimationType;
@@ -12,23 +14,11 @@ export type TSwipeRevealWrapper = {
   onRightFullSwipeView?: ReactElement;
   onLeftFullSwipe?: (key: TItemKey) => void;
   onRightFullSwipe?: (key: TItemKey) => void;
-};
-
-export type TTouchable = {
-  id: number;
-  title: string;
-  width: number;
-  bgColor?: string;
-};
-
-export type TItem = {
-  id: number;
-  title: string;
-  singer: string;
-  imageSrc: string;
-  leftTouchables?: TTouchable[];
-  rightTouchables?: TTouchable[];
-  type?: EAnimationType;
+  leftRevealedViewContainerStyle?: ViewStyle;
+  rightRevealedViewContainerStyle?: ViewStyle;
+  onRightFullSwipeViewContainerStyle?: ViewStyle;
+  onLeftFullSwipeViewContainerStyle?: ViewStyle;
+  itemContainerStyle?: ViewStyle;
 };
 
 export type TListItem = {
@@ -39,6 +29,6 @@ export type TListItem = {
   onRightFullSwipe: ((key: TItemKey) => void) | undefined;
   leftRevealedViewWidth: number;
   rightRevealedViewWidth: number;
+  itemWidth: number;
+  itemContainerStyle?: ViewStyle;
 };
-
-export type NullableNumber = null | number;

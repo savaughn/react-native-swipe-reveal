@@ -7,6 +7,10 @@ export const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  container: {
+    flexDirection: 'row',
+    backgroundColor: Color_Pallete.metal_black,
+  },
   imageContainer: {
     width: '20%',
     alignItems: 'center',
@@ -27,5 +31,13 @@ export const styles = StyleSheet.create({
   image: {
     height: SONG_HEIGHT - 20,
     width: '97%',
+  },
+  reavealView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  w100: {
+    width: '100%',
   },
 });
