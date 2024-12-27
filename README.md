@@ -26,6 +26,11 @@ This library helps you create smooth swipe animations in your React Native app. 
 
 > ⚠️ **Important**: This library only works with React Native CLI projects. It won't work if you're using Expo.
 
+## Demo
+
+https://github.com/user-attachments/assets/c2c17c54-171f-4dc4-99a8-c27677ba6863
+
+
 ## Installation
 
 1. First, install the main library:
