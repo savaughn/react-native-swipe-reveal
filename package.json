@@ -1,7 +1,7 @@
 {
   "name": "react-native-swipe-reveal",
-  "version": "0.1.0",
-  "description": "Swipaeble item",
+  "version": "0.1.1",
+  "description": "✨ Buttery-smooth Swipeable Wrapper for React Native - Powered by Reanimated V3 ✨",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
