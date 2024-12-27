@@ -8,7 +8,7 @@ Create beautiful swipe animations for your list items. When users swipe, reveal 
 Perfect for swipe-to-delete, swipe-to-archive, or any other swipe actions in your app!
 
 [![npm](https://img.shields.io/npm/v/react-native-swipe-reveal)](https://www.npmjs.com/package/react-native-swipe-reveal)
-[![license](https://img.shields.io/npm/l/react-native-swipe-reveal)](https://github.com/yourusername/react-native-swipe-reveal/blob/main/LICENSE)
+[![license](https://img.shields.io/npm/l/react-native-swipe-reveal)]
 [![platform](https://img.shields.io/badge/platform-ios%20%7C%20android-lightgrey)](https://reactnative.dev/)
 
 </div>
@@ -181,3 +181,7 @@ When using `animationType="right-full-swipe"`:
 ```
 
 > ⚠️ **Warning**: If you don't provide the required views for your chosen animation type, the swipe animation won't work! Make sure to always include the matching view prop for your animation type.
+
+## License
+
+MIT
