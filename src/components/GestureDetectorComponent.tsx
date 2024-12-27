@@ -13,52 +13,49 @@ export const GestureDetectorComponent = ({
   animationType,
   onLeftFullSwipe,
   onRightFullSwipe,
-  leftRevealedViewWidth,
-  rightRevealedViewWidth,
+  leftSwipeViewWidth,
+  rightSwipeViewWidth,
   itemWidth,
   itemContainerStyle,
 }: TListItem) => {
-  const doesLeftRevealViewExist = useMemo(() => {
+  const isLeftSwipe = useMemo(() => {
     return (
-      (animationType === EAnimationType['left-reveal'] ||
-        animationType === EAnimationType['left-right-reveal']) &&
-      leftRevealedViewWidth !== 0
+      (animationType === EAnimationType['left-swipe'] ||
+        animationType === EAnimationType['left-right-swipe']) &&
+      leftSwipeViewWidth !== 0
     );
-  }, [animationType, leftRevealedViewWidth]);
+  }, [animationType, leftSwipeViewWidth]);
 
-  const doesRightRevealViewExist = useMemo(() => {
+  const isRightSwipe = useMemo(() => {
     return (
-      (animationType === EAnimationType['right-reveal'] ||
-        animationType === EAnimationType['left-right-reveal']) &&
-      rightRevealedViewWidth !== 0
+      (animationType === EAnimationType['right-swipe'] ||
+        animationType === EAnimationType['left-right-swipe']) &&
+      rightSwipeViewWidth !== 0
     );
-  }, [animationType, rightRevealedViewWidth]);
+  }, [animationType, rightSwipeViewWidth]);
 
-  const doesLeftFullSwipeExist = useMemo(() => {
+  const isLeftFullSwipe = useMemo(() => {
     return animationType === EAnimationType['left-full-swipe'];
   }, [animationType]);
 
-  const doesRightFullSwipeExist = useMemo(() => {
+  const isRightFullSwipe = useMemo(() => {
     return animationType === EAnimationType['right-full-swipe'];
   }, [animationType]);
 
   const { panXAnimatedStyles, panXGesture } = usePanXGesture(
-    leftRevealedViewWidth,
-    rightRevealedViewWidth,
+    leftSwipeViewWidth,
+    rightSwipeViewWidth,
     id,
     onLeftFullSwipe,
     onRightFullSwipe,
-    doesLeftRevealViewExist,
-    doesRightRevealViewExist,
-    doesLeftFullSwipeExist,
-    doesRightFullSwipeExist,
+    isLeftSwipe,
+    isRightSwipe,
+    isLeftFullSwipe,
+    isRightFullSwipe,
     itemWidth
   );
 
-  return doesLeftRevealViewExist ||
-    doesRightRevealViewExist ||
-    doesLeftFullSwipeExist ||
-    doesRightFullSwipeExist ? (
+  return isLeftSwipe || isRightSwipe || isLeftFullSwipe || isRightFullSwipe ? (
     <GestureDetector gesture={panXGesture}>
       <Animated.View
         style={[

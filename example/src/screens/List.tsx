@@ -25,9 +25,9 @@ export const List = () => {
           <SwipeableItemWrapper
             id={item.id}
             animationType={item.type}
-            leftRevealedView={
-              item.type === EAnimationType['left-reveal'] ||
-              item.type === EAnimationType['left-right-reveal'] ? (
+            leftSwipeView={
+              item.type === EAnimationType['left-swipe'] ||
+              item.type === EAnimationType['left-right-swipe'] ? (
                 <View style={{ flexDirection: 'row', height: '100%' }}>
                   <View
                     style={[
@@ -35,6 +35,7 @@ export const List = () => {
                       {
                         backgroundColor: getRandomColor(),
                         paddingHorizontal: SCREEN_PADDING * 2,
+                        borderRadius: 10,
                       },
                     ]}
                   >
@@ -46,6 +47,7 @@ export const List = () => {
                       {
                         backgroundColor: getRandomColor(),
                         paddingHorizontal: SCREEN_PADDING,
+                        borderRadius: 10,
                       },
                     ]}
                   >
@@ -54,9 +56,9 @@ export const List = () => {
                 </View>
               ) : undefined
             }
-            rightRevealedView={
-              item.type === EAnimationType['right-reveal'] ||
-              item.type === EAnimationType['left-right-reveal'] ? (
+            rightSwipeView={
+              item.type === EAnimationType['right-swipe'] ||
+              item.type === EAnimationType['left-right-swipe'] ? (
                 <View style={{ flexDirection: 'row', height: '100%' }}>
                   <View
                     style={[
@@ -85,7 +87,7 @@ export const List = () => {
             }
             onLeftFullSwipe={() => deleteItem(item.id)}
             onRightFullSwipe={() => deleteItem(item.id)}
-            onRightFullSwipeView={
+            rightFullSwipeView={
               item.type === EAnimationType['right-full-swipe'] ? (
                 <View
                   style={[
@@ -101,7 +103,7 @@ export const List = () => {
                 </View>
               ) : undefined
             }
-            onLeftFullSwipeView={
+            leftFullSwipeView={
               item.type === EAnimationType['left-full-swipe'] ? (
                 <View
                   style={[
@@ -117,6 +119,7 @@ export const List = () => {
                 </View>
               ) : undefined
             }
+            leftSwipeViewContainerStyle={{ paddingVertical: 20 }}
           >
             <View style={styles.container}>
               <View style={styles.imageContainer}>

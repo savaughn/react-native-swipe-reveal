@@ -1,7 +1,7 @@
 export enum EAnimationType {
-  'left-reveal' = 'left-reveal',
-  'right-reveal' = 'right-reveal',
-  'left-right-reveal' = 'left-right-reveal',
+  'left-swipe' = 'left-swipe',
+  'right-swipe' = 'right-swipe',
+  'left-right-swipe' = 'left-right-swipe',
   'right-full-swipe' = 'right-full-swipe',
   'left-full-swipe' = 'left-full-swipe',
 }

@@ -8,16 +8,16 @@ export type TSwipeableItemWrapper = {
   id: TItemKey;
   children: ReactElement;
   animationType?: EAnimationType;
-  leftRevealedView?: ReactElement;
-  rightRevealedView?: ReactElement;
-  onLeftFullSwipeView?: ReactElement;
-  onRightFullSwipeView?: ReactElement;
+  leftSwipeView?: ReactElement;
+  rightSwipeView?: ReactElement;
+  leftFullSwipeView?: ReactElement;
+  rightFullSwipeView?: ReactElement;
   onLeftFullSwipe?: (key: TItemKey) => void;
   onRightFullSwipe?: (key: TItemKey) => void;
-  leftRevealedViewContainerStyle?: ViewStyle;
-  rightRevealedViewContainerStyle?: ViewStyle;
-  onRightFullSwipeViewContainerStyle?: ViewStyle;
-  onLeftFullSwipeViewContainerStyle?: ViewStyle;
+  leftSwipeViewContainerStyle?: ViewStyle;
+  rightSwipeViewContainerStyle?: ViewStyle;
+  leftFullSwipeViewContainerStyle?: ViewStyle;
+  rightFullSwipeViewContainerStyle?: ViewStyle;
   itemContainerStyle?: ViewStyle;
 };
 
@@ -27,8 +27,8 @@ export type TListItem = {
   animationType: EAnimationType | undefined;
   onLeftFullSwipe: ((key: TItemKey) => void) | undefined;
   onRightFullSwipe: ((key: TItemKey) => void) | undefined;
-  leftRevealedViewWidth: number;
-  rightRevealedViewWidth: number;
+  leftSwipeViewWidth: number;
+  rightSwipeViewWidth: number;
   itemWidth: number;
   itemContainerStyle?: ViewStyle;
 };

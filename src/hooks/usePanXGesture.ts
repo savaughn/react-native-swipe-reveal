@@ -13,15 +13,15 @@ import { ANIMATION_DURATION, EDraggingDirection } from '../constants';
 import type { TItemKey } from '../types';
 
 export const usePanXGesture = (
-  leftRevealedViewWidth: number,
-  rightRevealedViewWidth: number,
+  leftSwipeViewWidth: number,
+  rightSwipeViewWidth: number,
   id: string | number,
   onLeftFullSwipe: ((key: TItemKey) => void) | undefined,
   onRightFullSwipe: ((key: TItemKey) => void) | undefined,
-  doesLeftRevealViewExist: boolean,
-  doesRightRevealViewExist: boolean,
-  doesLeftFullSwipeExist: boolean,
-  doesRightFullSwipeExist: boolean,
+  isLeftSwipe: boolean,
+  isRightSwipe: boolean,
+  isLeftFullSwipe: boolean,
+  isRightFullSwipe: boolean,
   itemWidth: number
 ) => {
   //this is used to make scrollview active with pangesture
@@ -68,11 +68,11 @@ export const usePanXGesture = (
     User cannot see both touchables in one drag
     */
     if (dragDirectionShared.value === EDraggingDirection.right) {
-      if (!doesLeftRevealViewExist && !doesRightFullSwipeExist) {
+      if (!isRightSwipe && !isRightFullSwipe) {
         return;
       }
       if (dragX > 0) {
-        if (doesLeftRevealViewExist && dragX > leftRevealedViewWidth) {
+        if (isRightSwipe && dragX > rightSwipeViewWidth) {
           return;
         }
         //drag item to right
@@ -83,14 +83,11 @@ export const usePanXGesture = (
       }
     }
     if (dragDirectionShared.value === EDraggingDirection.left) {
-      if (!doesRightRevealViewExist && !doesLeftFullSwipeExist) {
+      if (!isLeftSwipe && !isLeftFullSwipe) {
         return;
       }
       if (dragX < 0) {
-        if (
-          doesRightRevealViewExist &&
-          getLeftPanX(dragX) > rightRevealedViewWidth
-        ) {
+        if (isLeftSwipe && getLeftPanX(dragX) > leftSwipeViewWidth) {
           return;
         }
         //drag item to left
@@ -173,20 +170,20 @@ export const usePanXGesture = (
       if (dragDirectionShared.value === EDraggingDirection.right) {
         //moving to right side
 
-        if (doesLeftRevealViewExist) {
-          if (offsetX.value >= leftRevealedViewWidth / 2) {
+        if (isRightSwipe) {
+          if (offsetX.value >= rightSwipeViewWidth / 2) {
             //move to right drag boundary
-            offsetX.value = withTiming(leftRevealedViewWidth, {
+            offsetX.value = withTiming(rightSwipeViewWidth, {
               duration: ANIMATION_DURATION,
             });
-            startX.value = leftRevealedViewWidth;
-          } else if (offsetX.value < leftRevealedViewWidth / 2) {
+            startX.value = rightSwipeViewWidth;
+          } else if (offsetX.value < rightSwipeViewWidth / 2) {
             //move to leftmost end
             resetOffsets(ANIMATION_DURATION);
           }
         }
 
-        if (doesRightFullSwipeExist) {
+        if (isRightFullSwipe) {
           if (offsetX.value >= itemWidth / 2) {
             //move to rightmost side and remove item
             offsetX.value = withTiming(
@@ -209,22 +206,22 @@ export const usePanXGesture = (
       } else if (dragDirectionShared.value === EDraggingDirection.left) {
         //moving to left side
 
-        if (doesRightRevealViewExist) {
-          if (getLeftPanX(offsetX.value) >= rightRevealedViewWidth / 2) {
+        if (isLeftSwipe) {
+          if (getLeftPanX(offsetX.value) >= leftSwipeViewWidth / 2) {
             //move to left drag boundary
 
-            //we set -rightRevealedViewWidth, as moving from left to right, values should be negative.
-            offsetX.value = withTiming(-rightRevealedViewWidth, {
+            //we set -leftSwipeViewWidth, as moving from left to right, values should be negative.
+            offsetX.value = withTiming(-leftSwipeViewWidth, {
               duration: ANIMATION_DURATION,
             });
-            startX.value = -rightRevealedViewWidth;
-          } else if (getLeftPanX(offsetX.value) < rightRevealedViewWidth / 2) {
+            startX.value = -leftSwipeViewWidth;
+          } else if (getLeftPanX(offsetX.value) < leftSwipeViewWidth / 2) {
             //move to rightmost end
             resetOffsets(ANIMATION_DURATION);
           }
         }
 
-        if (doesLeftFullSwipeExist) {
+        if (isLeftFullSwipe) {
           if (getLeftPanX(offsetX.value) >= itemWidth / 2) {
             //move to leftmost end and remove item
 

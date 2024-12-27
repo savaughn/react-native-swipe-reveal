@@ -10,28 +10,28 @@ export const SwipeableItemWrapperComponent = ({
   id,
   children,
   animationType,
-  leftRevealedView,
-  rightRevealedView,
-  onLeftFullSwipeView,
-  onRightFullSwipeView,
+  leftSwipeView,
+  rightSwipeView,
+  leftFullSwipeView,
+  rightFullSwipeView,
   onLeftFullSwipe,
   onRightFullSwipe,
-  leftRevealedViewContainerStyle,
-  rightRevealedViewContainerStyle,
-  onLeftFullSwipeViewContainerStyle,
-  onRightFullSwipeViewContainerStyle,
+  leftSwipeViewContainerStyle,
+  rightSwipeViewContainerStyle,
+  leftFullSwipeViewContainerStyle,
+  rightFullSwipeViewContainerStyle,
   itemContainerStyle,
 }: TSwipeableItemWrapper) => {
-  const [leftRevealedViewWidth, setLeftRevealedViewWidth] = React.useState(0);
-  const [rightRevealedViewWidth, setRightRevealedViewWidth] = React.useState(0);
+  const [leftSwipeViewWidth, setLeftSwipeViewWidth] = React.useState(0);
+  const [rightSwipeViewWidth, setRightSwipeViewWidth] = React.useState(0);
   const [itemWidth, setItemWidth] = React.useState(0);
 
-  const onLayoutLeftRevealedView = (event: LayoutChangeEvent) => {
-    setLeftRevealedViewWidth(event.nativeEvent.layout.width);
+  const onLayoutLeftSwipeView = (event: LayoutChangeEvent) => {
+    setLeftSwipeViewWidth(event.nativeEvent.layout.width);
   };
 
-  const onLayoutRightRevealedView = (event: LayoutChangeEvent) => {
-    setRightRevealedViewWidth(event.nativeEvent.layout.width);
+  const onLayoutRightSwipeView = (event: LayoutChangeEvent) => {
+    setRightSwipeViewWidth(event.nativeEvent.layout.width);
   };
 
   const onLayoutItem = (event: LayoutChangeEvent) => {
@@ -45,65 +45,64 @@ export const SwipeableItemWrapperComponent = ({
         onRightFullSwipe={onRightFullSwipe}
         id={id}
         animationType={animationType}
-        leftRevealedViewWidth={leftRevealedViewWidth}
-        rightRevealedViewWidth={rightRevealedViewWidth}
+        leftSwipeViewWidth={leftSwipeViewWidth}
+        rightSwipeViewWidth={rightSwipeViewWidth}
         itemWidth={itemWidth}
         itemContainerStyle={itemContainerStyle}
       >
         {children}
       </GestureDetectorComponent>
-      {(animationType === EAnimationType['left-reveal'] ||
-        animationType === EAnimationType['left-right-reveal']) &&
-      leftRevealedView ? (
+      {(animationType === EAnimationType['left-swipe'] ||
+        animationType === EAnimationType['left-right-swipe']) &&
+      leftSwipeView ? (
         <View
-          onLayout={onLayoutLeftRevealedView}
-          style={[
-            styles.leftRevealedViewContainer,
-            leftRevealedViewContainerStyle && leftRevealedViewContainerStyle,
-          ]}
-        >
-          {leftRevealedView}
-        </View>
-      ) : null}
-      {(animationType === EAnimationType['right-reveal'] ||
-        animationType === EAnimationType['left-right-reveal']) &&
-      rightRevealedView ? (
-        <View
-          onLayout={onLayoutRightRevealedView}
+          onLayout={onLayoutLeftSwipeView}
           style={[
             styles.rightContainer,
-            rightRevealedViewContainerStyle && rightRevealedViewContainerStyle,
+            leftSwipeViewContainerStyle && leftSwipeViewContainerStyle,
           ]}
         >
-          {rightRevealedView}
+          {leftSwipeView}
+        </View>
+      ) : null}
+      {(animationType === EAnimationType['right-swipe'] ||
+        animationType === EAnimationType['left-right-swipe']) &&
+      rightSwipeView ? (
+        <View
+          onLayout={onLayoutRightSwipeView}
+          style={[
+            styles.leftRevealedViewContainer,
+            rightSwipeViewContainerStyle && rightSwipeViewContainerStyle,
+          ]}
+        >
+          {rightSwipeView}
         </View>
       ) : null}
       {animationType === EAnimationType['right-full-swipe'] &&
-      onRightFullSwipeView &&
+      rightFullSwipeView &&
       typeof onRightFullSwipe === 'function' ? (
         <View
           style={[
             styles.leftRevealedViewContainer,
             styles.w100,
-            onRightFullSwipeViewContainerStyle &&
-              onRightFullSwipeViewContainerStyle,
+            rightFullSwipeViewContainerStyle &&
+              rightFullSwipeViewContainerStyle,
           ]}
         >
-          {onRightFullSwipeView}
+          {rightFullSwipeView}
         </View>
       ) : null}
       {animationType === EAnimationType['left-full-swipe'] &&
-      onLeftFullSwipeView &&
+      leftFullSwipeView &&
       typeof onLeftFullSwipe === 'function' ? (
         <Animated.View
           style={[
             styles.rightContainer,
             styles.w100,
-            onLeftFullSwipeViewContainerStyle &&
-              onLeftFullSwipeViewContainerStyle,
+            leftFullSwipeViewContainerStyle && leftFullSwipeViewContainerStyle,
           ]}
         >
-          {onLeftFullSwipeView}
+          {leftFullSwipeView}
         </Animated.View>
       ) : null}
     </View>
