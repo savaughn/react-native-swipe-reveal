@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './List.styles';
 import {
@@ -29,7 +29,7 @@ export const List = () => {
               item.type === EAnimationType['left-swipe'] ||
               item.type === EAnimationType['left-right-swipe'] ? (
                 <View style={{ flexDirection: 'row', height: '100%' }}>
-                  <View
+                  <TouchableOpacity
                     style={[
                       styles.reavealView,
                       {
@@ -40,8 +40,8 @@ export const List = () => {
                     ]}
                   >
                     <Text>Left 1</Text>
-                  </View>
-                  <View
+                  </TouchableOpacity>
+                  <TouchableOpacity
                     style={[
                       styles.reavealView,
                       {
@@ -52,7 +52,7 @@ export const List = () => {
                     ]}
                   >
                     <Text>Left 2</Text>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               ) : undefined
             }

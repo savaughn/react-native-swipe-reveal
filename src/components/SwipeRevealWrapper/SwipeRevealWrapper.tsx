@@ -79,8 +79,7 @@ export const SwipeableItemWrapperComponent = ({
         </View>
       ) : null}
       {animationType === EAnimationType['right-full-swipe'] &&
-      rightFullSwipeView &&
-      typeof onRightFullSwipe === 'function' ? (
+      rightFullSwipeView ? (
         <View
           style={[
             styles.leftRevealedViewContainer,
@@ -93,8 +92,7 @@ export const SwipeableItemWrapperComponent = ({
         </View>
       ) : null}
       {animationType === EAnimationType['left-full-swipe'] &&
-      leftFullSwipeView &&
-      typeof onLeftFullSwipe === 'function' ? (
+      leftFullSwipeView ? (
         <Animated.View
           style={[
             styles.rightContainer,
