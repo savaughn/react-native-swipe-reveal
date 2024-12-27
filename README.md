@@ -8,7 +8,7 @@ Create beautiful swipe animations for your list items. When users swipe, reveal 
 Perfect for swipe-to-delete, swipe-to-archive, or any other swipe actions in your app!
 
 [![npm](https://img.shields.io/npm/v/react-native-swipe-reveal)](https://www.npmjs.com/package/react-native-swipe-reveal)
-[![license](https://img.shields.io/npm/l/react-native-swipe-reveal)]
+[![license](https://img.shields.io/npm/l/react-native-swipe-reveal)](https://github.com/varunkukade/react-native-swipe-reveal?tab=readme-ov-file#license)
 [![platform](https://img.shields.io/badge/platform-ios%20%7C%20android-lightgrey)](https://reactnative.dev/)
 
 </div>
