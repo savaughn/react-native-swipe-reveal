@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { TSwipeableItemWrapper } from '../../types';
 import Animated from 'react-native-reanimated';
 import { EAnimationType } from '../../constants';
@@ -22,9 +22,9 @@ export const SwipeableItemWrapperComponent = ({
   rightFullSwipeViewContainerStyle,
   itemContainerStyle,
 }: TSwipeableItemWrapper) => {
-  const [leftSwipeViewWidth, setLeftSwipeViewWidth] = React.useState(0);
-  const [rightSwipeViewWidth, setRightSwipeViewWidth] = React.useState(0);
-  const [itemWidth, setItemWidth] = React.useState(0);
+  const [leftSwipeViewWidth, setLeftSwipeViewWidth] = useState(0);
+  const [rightSwipeViewWidth, setRightSwipeViewWidth] = useState(0);
+  const [itemWidth, setItemWidth] = useState(0);
 
   const onLayoutLeftSwipeView = (event: LayoutChangeEvent) => {
     setLeftSwipeViewWidth(event.nativeEvent.layout.width);

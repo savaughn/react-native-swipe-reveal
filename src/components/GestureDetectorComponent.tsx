@@ -1,8 +1,8 @@
+import React, { useMemo } from 'react';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import { usePanXGesture } from '../hooks/usePanXGesture';
 import type { TListItem } from '../types';
-import { useMemo } from 'react';
 import { EAnimationType } from '../constants';
 import { View } from 'react-native';
 import { styles } from './SwipeRevealWrapper/SwipeRevealWrapper.styles';

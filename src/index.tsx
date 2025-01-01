@@ -1,3 +1,4 @@
+import React from 'react';
 import { SwipeableItemWrapperComponent } from './components/SwipeRevealWrapper/SwipeRevealWrapper';
 import type { TSwipeableItemWrapper } from './types';
 
