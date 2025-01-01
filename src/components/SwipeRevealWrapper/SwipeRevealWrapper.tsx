@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { TSwipeableItemWrapper } from '../../types';
 import Animated from 'react-native-reanimated';
 import { EAnimationType } from '../../constants';
