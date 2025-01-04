@@ -81,13 +81,38 @@ Here's a simple example to get you started:
 ```jsx
 import { EAnimationType, SwipeableItemWrapper } from 'react-native-swipe-reveal';
 
-<SwipeableItemWrapper
-  id="unique-id"
-  animationType={EAnimationType['left-swipe']}
-  leftSwipeView={<YourUnderlyingComponent />}
->
-  <YourItemComponent />
-</SwipeableItemWrapper>
+    <SwipeableItemWrapper
+      id={'123'}
+      animationType={EAnimationType['left-swipe']}
+      leftSwipeView={
+        <View style={{flexDirection: 'row', height: '100%'}}>
+          <TouchableOpacity
+            style={[
+              {
+                backgroundColor: 'red',
+                paddingHorizontal: 20,
+                borderRadius: 10,
+              },
+            ]}>
+            <Text>Left 1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              {
+                backgroundColor: 'cyan',
+                paddingHorizontal: 20,
+                borderRadius: 10,
+              },
+            ]}>
+            <Text>Left 2</Text>
+          </TouchableOpacity>
+        </View>
+      }>
+      <View style={{height: 100, backgroundColor: 'green'}}>
+        <Text>{'Title'}</Text>
+        <Text>{'Desc'}</Text>
+      </View>
+    </SwipeableItemWrapper>
 ```
 
 ## Animation Types
