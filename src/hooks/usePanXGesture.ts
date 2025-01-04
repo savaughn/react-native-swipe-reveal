@@ -4,11 +4,7 @@ import {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {
-  Gesture,
-  type GestureUpdateEvent,
-  type PanGestureHandlerEventPayload,
-} from 'react-native-gesture-handler';
+import { Gesture } from 'react-native-gesture-handler';
 import { ANIMATION_DURATION, EDraggingDirection } from '../constants';
 import type { TItemKey } from '../types';
 
@@ -51,57 +47,10 @@ export const usePanXGesture = (
     return -value;
   };
 
-  const handlePanX = (e: GestureUpdateEvent<PanGestureHandlerEventPayload>) => {
-    'worklet';
-    const dragX = startX.value + e.translationX;
-    //update drag direction
-    dragDirectionShared.value =
-      dragX > 0
-        ? EDraggingDirection.right
-        : dragX < 0
-          ? EDraggingDirection.left
-          : EDraggingDirection.none;
-    /*
-    dragX > 0 -> dragging to right side.
-    dragX < 0 -> dragging to left side.
-    here in one drag, we want to let user drag only one touchable either left or right
-    User cannot see both touchables in one drag
-    */
-    if (dragDirectionShared.value === EDraggingDirection.right) {
-      if (!isRightSwipe && !isRightFullSwipe) {
-        return;
-      }
-      if (dragX > 0) {
-        if (isRightSwipe && dragX > rightSwipeViewWidth) {
-          return;
-        }
-        //drag item to right
-        offsetX.value = dragX;
-      } else {
-        //while dragging right, if dragged to leftmost end reset values
-        resetOffsets();
-      }
-    }
-    if (dragDirectionShared.value === EDraggingDirection.left) {
-      if (!isLeftSwipe && !isLeftFullSwipe) {
-        return;
-      }
-      if (dragX < 0) {
-        if (isLeftSwipe && getLeftPanX(dragX) > leftSwipeViewWidth) {
-          return;
-        }
-        //drag item to left
-        offsetX.value = dragX;
-      } else {
-        //while dragging left, if dragged to rightmost end reset values
-        resetOffsets();
-      }
-    }
-  };
-
   const panXGesture = Gesture.Pan()
     .manualActivation(true)
     .onTouchesDown((e) => {
+      'worklet';
       if (e?.changedTouches[0]?.x && e?.changedTouches[0]?.y) {
         initialTouchLocation.value = {
           x: e.changedTouches[0].x,
@@ -110,6 +59,7 @@ export const usePanXGesture = (
       }
     })
     .onTouchesMove((evt, state) => {
+      'worklet';
       // Sanity checks
       if (!initialTouchLocation.value || !evt.changedTouches.length) {
         state.fail();
@@ -164,9 +114,54 @@ export const usePanXGesture = (
       }
     })
     .onUpdate((e) => {
-      handlePanX(e);
+      'worklet';
+      const dragX = startX.value + e.translationX;
+      //update drag direction
+      dragDirectionShared.value =
+        dragX > 0
+          ? EDraggingDirection.right
+          : dragX < 0
+            ? EDraggingDirection.left
+            : EDraggingDirection.none;
+      /*
+    dragX > 0 -> dragging to right side.
+    dragX < 0 -> dragging to left side.
+    here in one drag, we want to let user drag only one touchable either left or right
+    User cannot see both touchables in one drag
+    */
+      if (dragDirectionShared.value === EDraggingDirection.right) {
+        if (!isRightSwipe && !isRightFullSwipe) {
+          return;
+        }
+        if (dragX > 0) {
+          if (isRightSwipe && dragX > rightSwipeViewWidth) {
+            return;
+          }
+          //drag item to right
+          offsetX.value = dragX;
+        } else {
+          //while dragging right, if dragged to leftmost end reset values
+          resetOffsets();
+        }
+      }
+      if (dragDirectionShared.value === EDraggingDirection.left) {
+        if (!isLeftSwipe && !isLeftFullSwipe) {
+          return;
+        }
+        if (dragX < 0) {
+          if (isLeftSwipe && getLeftPanX(dragX) > leftSwipeViewWidth) {
+            return;
+          }
+          //drag item to left
+          offsetX.value = dragX;
+        } else {
+          //while dragging left, if dragged to rightmost end reset values
+          resetOffsets();
+        }
+      }
     })
     .onEnd(() => {
+      'worklet';
       if (dragDirectionShared.value === EDraggingDirection.right) {
         //moving to right side
 
