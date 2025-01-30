@@ -23,6 +23,8 @@ This library helps you create smooth swipe animations in your React Native app. 
 - Full swipe to left or right to trigger actions (like deleting an item)
 - Customize how everything looks with your own styles
 - Works smoothly on both iPhone and Android phones
+- ✅ Supports new Architecture
+- ✅ Backwards compatibility with old architecture
 
 > ⚠️ **Important**: This library only works with React Native CLI projects. It won't work if you're using Expo.
 
