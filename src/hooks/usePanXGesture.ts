@@ -18,6 +18,7 @@ export const usePanXGesture = (
   isRightSwipe: boolean,
   isLeftFullSwipe: boolean,
   isRightFullSwipe: boolean,
+  isComboLeftSwipe: boolean,
   itemWidth: number
 ) => {
   //this is used to make scrollview active with pangesture
@@ -145,18 +146,30 @@ export const usePanXGesture = (
         }
       }
       if (dragDirectionShared.value === EDraggingDirection.left) {
-        if (!isLeftSwipe && !isLeftFullSwipe) {
-          return;
-        }
-        if (dragX < 0) {
-          if (isLeftSwipe && getLeftPanX(dragX) > leftSwipeViewWidth) {
+        if (isComboLeftSwipe) {
+          if (dragX < 0) {
+            // Limit to leftSwipeViewWidth for half swipe, allow up to -itemWidth for full swipe
+            if (getLeftPanX(dragX) > itemWidth) {
+              return;
+            }
+            offsetX.value = dragX;
+          } else {
+            resetOffsets();
+          }
+        } else {
+          if (!isLeftSwipe && !isLeftFullSwipe) {
             return;
           }
-          //drag item to left
-          offsetX.value = dragX;
-        } else {
-          //while dragging left, if dragged to rightmost end reset values
-          resetOffsets();
+          if (dragX < 0) {
+            if (isLeftSwipe && getLeftPanX(dragX) > leftSwipeViewWidth) {
+              return;
+            }
+            //drag item to left
+            offsetX.value = dragX;
+          } else {
+            //while dragging left, if dragged to rightmost end reset values
+            resetOffsets();
+          }
         }
       }
     })
@@ -200,27 +213,9 @@ export const usePanXGesture = (
         }
       } else if (dragDirectionShared.value === EDraggingDirection.left) {
         //moving to left side
-
-        if (isLeftSwipe) {
-          if (getLeftPanX(offsetX.value) >= leftSwipeViewWidth / 2) {
-            //move to left drag boundary
-
-            //we set -leftSwipeViewWidth, as moving from left to right, values should be negative.
-            offsetX.value = withTiming(-leftSwipeViewWidth, {
-              duration: ANIMATION_DURATION,
-            });
-            startX.value = -leftSwipeViewWidth;
-          } else if (getLeftPanX(offsetX.value) < leftSwipeViewWidth / 2) {
-            //move to rightmost end
-            resetOffsets(ANIMATION_DURATION);
-          }
-        }
-
-        if (isLeftFullSwipe) {
+        if (isComboLeftSwipe) {
           if (getLeftPanX(offsetX.value) >= itemWidth / 2) {
-            //move to leftmost end and remove item
-
-            //we set -itemWidth, as moving from left to right, values should be negative.
+            // Full swipe: move off screen and call function
             offsetX.value = withTiming(
               -itemWidth,
               {
@@ -233,9 +228,54 @@ export const usePanXGesture = (
               }
             );
             startX.value = -itemWidth;
-          } else if (getLeftPanX(offsetX.value) < itemWidth / 2) {
-            //move to rightmost end
+          } else if (getLeftPanX(offsetX.value) >= leftSwipeViewWidth / 2) {
+            // Half swipe: snap to leftSwipeViewWidth
+            offsetX.value = withTiming(-leftSwipeViewWidth, {
+              duration: ANIMATION_DURATION,
+            });
+            startX.value = -leftSwipeViewWidth;
+          } else {
+            // Not enough swipe: reset
             resetOffsets(ANIMATION_DURATION);
+          }
+        } else {
+
+          if (isLeftSwipe) {
+            if (getLeftPanX(offsetX.value) >= leftSwipeViewWidth / 2) {
+              //move to left drag boundary
+
+              //we set -leftSwipeViewWidth, as moving from left to right, values should be negative.
+              offsetX.value = withTiming(-leftSwipeViewWidth, {
+                duration: ANIMATION_DURATION,
+              });
+              startX.value = -leftSwipeViewWidth;
+            } else if (getLeftPanX(offsetX.value) < leftSwipeViewWidth / 2) {
+              //move to rightmost end
+              resetOffsets(ANIMATION_DURATION);
+            }
+          }
+
+          if (isLeftFullSwipe) {
+            if (getLeftPanX(offsetX.value) >= itemWidth / 2) {
+              //move to leftmost end and remove item
+
+              //we set -itemWidth, as moving from left to right, values should be negative.
+              offsetX.value = withTiming(
+                -itemWidth,
+                {
+                  duration: ANIMATION_DURATION,
+                },
+                () => {
+                  if (typeof onLeftFullSwipe === 'function') {
+                    runOnJS(onLeftFullSwipe)(id);
+                  }
+                }
+              );
+              startX.value = -itemWidth;
+            } else if (getLeftPanX(offsetX.value) < itemWidth / 2) {
+              //move to rightmost end
+              resetOffsets(ANIMATION_DURATION);
+            }
           }
         }
       } else {

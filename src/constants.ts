@@ -4,6 +4,7 @@ export enum EAnimationType {
   'left-right-swipe' = 'left-right-swipe',
   'right-full-swipe' = 'right-full-swipe',
   'left-full-swipe' = 'left-full-swipe',
+  'combo-left-swipe' = 'combo-left-swipe',
 }
 
 export const ANIMATION_DURATION = 200;
