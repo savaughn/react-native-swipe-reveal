@@ -131,7 +131,8 @@ enum EAnimationType {
   'right-swipe' = 'right-swipe',         // Reveals content when swiping right
   'left-right-swipe' = 'left-right-swipe', // Reveals content when swiping either direction
   'right-full-swipe' = 'right-full-swipe', // Triggers action on full right swipe
-  'left-full-swipe' = 'left-full-swipe'    // Triggers action on full left swipe
+  'left-full-swipe' = 'left-full-swipe',    // Triggers action on full left swipe
+  'combo-left-swipe' = 'combo-left-swipe', // Combines full left swipe with left swipe actions (e.g. iOS notifications)
 }
 ```
 

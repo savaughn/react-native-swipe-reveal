@@ -53,9 +53,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/savaughn/react-native-swipe-reveal.git"
+    "url": "git+https://github.com/varunkukade/react-native-swipe-reveal.git"
   },
   "author": "varunkukade <varunkukade999@gmail.com> (https://github.com/varunkukade)",
+  "contributors": [
+    {
+      "name": "savaughn",
+      "url": "https://github.com/savaughn"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/varunkukade/react-native-swipe-reveal/issues"
