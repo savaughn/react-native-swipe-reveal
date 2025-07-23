@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipe-reveal",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "✨ Buttery-smooth Swipeable Wrapper for React Native - Powered by Reanimated V3 ✨",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -53,7 +53,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/varunkukade/react-native-swipe-reveal.git"
+    "url": "git+https://github.com/savaughn/react-native-swipe-reveal.git"
   },
   "author": "varunkukade <varunkukade999@gmail.com> (https://github.com/varunkukade)",
   "license": "MIT",
