@@ -22,7 +22,7 @@ export const SONGS = [
     title: 'Viva La Vida',
     singer: 'Coldplay',
     imageSrc: 'https://i.ytimg.com/vi/dvgZkm1xWPE/maxresdefault.jpg',
-    type: EAnimationType['left-right-swipe'],
+    type: EAnimationType['combo-left-swipe'],
   },
   {
     id: 3,

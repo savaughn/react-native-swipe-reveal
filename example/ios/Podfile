@@ -32,7 +32,7 @@ target 'SwipeRevealExample' do
 
 
   pre_install do |installer|
-    system("cd ../../ && npx bob build --target codegen")
+    system("cd ../../ && npx react-native codegen")
   end
 
   post_install do |installer|
