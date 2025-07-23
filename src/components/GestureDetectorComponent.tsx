@@ -42,6 +42,13 @@ export const GestureDetectorComponent = ({
     return animationType === EAnimationType['right-full-swipe'];
   }, [animationType]);
 
+  const isComboLeftSwipe = useMemo(() => {
+    return (
+      animationType === EAnimationType['combo-left-swipe'] &&
+      leftSwipeViewWidth !== 0
+    );
+  }, [animationType, leftSwipeViewWidth, rightSwipeViewWidth]);
+
   const { panXAnimatedStyles, panXGesture } = usePanXGesture(
     leftSwipeViewWidth,
     rightSwipeViewWidth,
@@ -52,10 +59,11 @@ export const GestureDetectorComponent = ({
     isRightSwipe,
     isLeftFullSwipe,
     isRightFullSwipe,
+    isComboLeftSwipe,
     itemWidth
   );
 
-  return isLeftSwipe || isRightSwipe || isLeftFullSwipe || isRightFullSwipe ? (
+  return isLeftSwipe || isRightSwipe || isLeftFullSwipe || isRightFullSwipe || isComboLeftSwipe ? (
     <GestureDetector gesture={panXGesture}>
       <Animated.View
         style={[

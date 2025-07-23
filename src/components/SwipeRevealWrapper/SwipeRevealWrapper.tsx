@@ -53,7 +53,8 @@ export const SwipeableItemWrapperComponent = ({
         {children}
       </GestureDetectorComponent>
       {(animationType === EAnimationType['left-swipe'] ||
-        animationType === EAnimationType['left-right-swipe']) &&
+        animationType === EAnimationType['left-right-swipe'] ||
+        animationType === EAnimationType['combo-left-swipe']) &&
       leftSwipeView ? (
         <View
           onLayout={onLayoutLeftSwipeView}
