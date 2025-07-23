@@ -19,5 +19,11 @@ module.exports = wrapWithReanimatedMetroConfig(
     root,
     pkg,
     project: __dirname,
+    watchFolders: [
+      path.resolve(root, 'src'),
+    ],
+    extraNodeModules: {
+      'react-native-swipe-reveal': path.resolve(root, 'src'),
+    },
   })
 );

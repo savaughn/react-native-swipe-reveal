@@ -27,7 +27,8 @@ export const List = () => {
             animationType={item.type}
             leftSwipeView={
               item.type === EAnimationType['left-swipe'] ||
-              item.type === EAnimationType['left-right-swipe'] ? (
+              item.type === EAnimationType['left-right-swipe'] ||
+              item.type === EAnimationType['combo-left-swipe'] ? (
                 <View style={{ flexDirection: 'row', height: '100%' }}>
                   <TouchableOpacity
                     style={[
@@ -104,7 +105,8 @@ export const List = () => {
               ) : undefined
             }
             leftFullSwipeView={
-              item.type === EAnimationType['left-full-swipe'] ? (
+              item.type === EAnimationType['left-full-swipe'] || 
+              item.type === EAnimationType['combo-left-swipe'] ? (
                 <View
                   style={[
                     styles.reavealView,
@@ -139,6 +141,7 @@ export const List = () => {
           </SwipeableItemWrapper>
         )}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.listContentContainer}
       />
     </View>
   );
